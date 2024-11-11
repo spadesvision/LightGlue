@@ -21,7 +21,9 @@ else:
 torch.backends.cudnn.deterministic = True
 
 
-@torch.amp.custom_fwd(cast_inputs=torch.float32, device_type="cuda")
+# TODO In torch 2.5 we will have to do this
+# @torch.amp.custom_fwd(cast_inputs=torch.float32, device_type="cuda")
+@torch.cuda.amp.custom_fwd(cast_inputs=torch.float32)
 def normalize_keypoints(
     kpts: torch.Tensor, size: Optional[torch.Tensor] = None
 ) -> torch.Tensor:
